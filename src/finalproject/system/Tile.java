@@ -22,11 +22,10 @@ public abstract class Tile extends TileComponent {
     //connect adjacent tiles with edge
     public ArrayList<Tile> neighbors = new ArrayList<>();
 
-    public Tile() {}
+    public Tile() {
+    }
     
     public Tile(double dist, double time, double dmg) {
-        super();
-        
         this.distanceCost = dist;
         this.timeCost = time;
         this.damageCost = dmg;
@@ -38,7 +37,7 @@ public abstract class Tile extends TileComponent {
                 StateManager.getInstance().controller.addWaypoint((Tile)this);
                 StateManager.getInstance().isInWaypointSelection.set(false);
             }
-            Logger.getInstance().logSystemMessage("Clicked on a " + getTileType() + " region, distance " + distanceCost + ", time " + timeCost + ", risk damage " + damageCost + ".");
+            Logger.getInstance().logSystemMessage("Clicked on a " + getTileType() + " region, distance " + this.distanceCost + ", time " + this.timeCost + ", risk damage " + this.damageCost + ".");
         });
     }
 

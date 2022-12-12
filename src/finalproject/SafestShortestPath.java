@@ -21,6 +21,7 @@ public class SafestShortestPath extends ShortestPath {
 	
 	public void generateGraph() {
 		// TODO Auto-generated method stub
+
 	}
 
 }
