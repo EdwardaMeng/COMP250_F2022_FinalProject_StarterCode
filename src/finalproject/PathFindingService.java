@@ -1,21 +1,20 @@
 package finalproject;
 
-import finalproject.system.Logger;
 import finalproject.system.Tile;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
-import static finalproject.Graph.edges;
-import static finalproject.Graph.vertices;
+
 
 public abstract class PathFindingService{
 	public static Tile source;
 	public static Graph g;
+    public static ArrayList<Tile> vertices;
 
 	public PathFindingService(Tile start) {
     	source = start;
-        ArrayList<Tile> vertices = DijkstraTraverse(start);
+        vertices = DijkstraTraverse(start);
 //        Logger.getInstance().logSystemMessage(String.valueOf(vertices.size()));
         g = new Graph(vertices);
         for(Tile t : vertices) {
@@ -70,7 +69,7 @@ public abstract class PathFindingService{
             for (Tile tile : t.neighbors) {
                 System.out.println("current neighbor is " + tile);
                 if (tile.costEstimate == Integer.MAX_VALUE) {
-                    for (Graph.Edge edge : edges) {
+                    for (Graph.Edge edge : g.getAllEdges()) {
                         if (edge.getStart() == t && edge.getEnd() == tile) {
                             tile.costEstimate = t.costEstimate + edge.weight;
                             tpq.updateKeys(tile, t, tile.costEstimate);
@@ -81,7 +80,7 @@ public abstract class PathFindingService{
                     if(tile != t.predecessor){
                         double oldCost = tile.costEstimate;
                         double newCost = Integer.MAX_VALUE;
-                        for (Graph.Edge edge : edges) {
+                        for (Graph.Edge edge : g.getAllEdges()) {
                             if (edge.getStart() == t && edge.getEnd() == tile) {
                                 newCost = t.costEstimate + edge.weight;
                             }
