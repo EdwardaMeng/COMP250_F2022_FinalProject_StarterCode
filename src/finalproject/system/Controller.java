@@ -162,7 +162,7 @@ public class Controller {
 
         ArrayList<MediaPlayer> yellSoundList = new ArrayList<MediaPlayer>(Arrays.asList(yellMusic1Player, yellMusic2Player, yellMusic3Player, yellMusic4Player, null, null, null));
 
-        //spawn a agent that follows the current path based on the cost
+        //spawn an agent that follows the current path based on the cost
         //setup animation
         int agentWidth = 50;
         int agentHeight = 50;
@@ -457,11 +457,11 @@ public class Controller {
         PathFindingService pf = new ShortestPath(StateManager.getInstance().getCurrentMap());
 
         // USE THIS TO TEST LEVEL 4
-        //path = pf.findPath(StateManager.getInstance().getCurrentMap());
+        path = pf.findPath(StateManager.getInstance().getCurrentMap());
         
         // USE THIS TO TEST LEVEL 5
-        LinkedList<Tile> waypoints = StateManager.getInstance().currentWaypoints;
-        path = pf.findPath(StateManager.getInstance().getCurrentMap(), waypoints);
+//        LinkedList<Tile> waypoints = StateManager.getInstance().currentWaypoints;
+//        path = pf.findPath(StateManager.getInstance().getCurrentMap(), waypoints);
 
         //visualize the path if available
         visualizePath(path);

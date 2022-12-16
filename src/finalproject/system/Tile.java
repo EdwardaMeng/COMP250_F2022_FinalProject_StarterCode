@@ -73,4 +73,13 @@ public abstract class Tile extends TileComponent {
         this.yCoord = y;
     }
 
+    public double costEstimate(){
+        if(this.predecessor == null)
+            costEstimate = this.distanceCost;
+        else
+            costEstimate = this.distanceCost + this.predecessor.distanceCost;
+
+        return costEstimate;
+    }
+
 }

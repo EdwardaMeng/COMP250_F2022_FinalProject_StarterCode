@@ -19,7 +19,8 @@ public class GraphTraversal
 	public static Queue<Tile> BFS_helper(Tile s){
 		Queue<Tile> queue1 = new LinkedList<>();
 		Queue<Tile> queue2 = new LinkedList<>();
-		queue1.add(s);
+		if(s.isWalkable())
+			queue1.add(s);
 		while(!queue1.isEmpty()){
 			Tile current  = queue1.poll();
 			queue2.add(current);

@@ -10,7 +10,7 @@ public class DesertTile extends Tile {
         this.type = TileType.Desert;
         this.damageCost = 3;
         this.distanceCost = 2;
-        this.timeCost = 1;
+        this.timeCost = 6;
     }
 
     public DesertTile(double dist, double time, double dmg) {
