@@ -2,9 +2,10 @@ package finalproject;
 
 
 import finalproject.system.Tile;
+import finalproject.system.TileType;
+import finalproject.tiles.MetroTile;
 
-import static finalproject.Graph.edges;
-import static finalproject.Graph.vertices;
+import java.util.ArrayList;
 
 public class ShortestPath extends PathFindingService {
     //TODO level 4: find distance prioritized path
@@ -15,12 +16,22 @@ public class ShortestPath extends PathFindingService {
 	@Override
 	public void generateGraph() {
 		// TODO Auto-generated method stub
-        for(Tile t : vertices) {
-            for(Tile s : t.neighbors){
-                edges.add(new Graph.Edge(t, s, s.costEstimate));
+        ArrayList<Tile> vertices = GraphTraversal.BFS(source);
+        g = new Graph(vertices);
+        for (Tile vertex: vertices)
+        {
+            for (Tile neighbor :g.getNeighbors(vertex))
+            {
+                if (vertex.type == TileType.Metro && neighbor.type == TileType.Metro)
+                {
+                    ((MetroTile)vertex).metroDistanceCost = getManhattanDistance(vertex, neighbor) / ((MetroTile)vertex).metroCommuteFactor;
+                    g.addEdge(vertex, neighbor, getManhattanDistance(vertex, neighbor) / ((MetroTile)vertex).metroCommuteFactor);
+                }
+                else
+                {
+                    g.addEdge(vertex, neighbor, neighbor.distanceCost);
+                }
             }
         }
-
 	}
-    
 }

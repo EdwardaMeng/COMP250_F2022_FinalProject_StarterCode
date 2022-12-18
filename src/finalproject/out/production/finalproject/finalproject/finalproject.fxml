@@ -23,7 +23,7 @@
             <MenuItem text="Start Simulation" onAction="#startSimulation"></MenuItem>
             <MenuItem text="Reset" onAction="#reset"></MenuItem>
             <MenuItem text="Reset Waypoints" onAction="#resetWaypoints"></MenuItem>
-            <MenuItem text="Reset Path" onAction="#resetPath"/>
+            <MenuItem text="Reset Path" onAction="#resetPath"></MenuItem>
             <SeparatorMenuItem></SeparatorMenuItem>
             <MenuItem text="Exit" onAction="#exit"></MenuItem>
         </Menu>
