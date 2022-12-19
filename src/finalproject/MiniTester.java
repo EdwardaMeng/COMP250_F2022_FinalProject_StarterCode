@@ -723,7 +723,7 @@ public class MiniTester {
     public static boolean testSPathGenerateGraphWithMetro() { // 1 point
         buildWorld(lgMap, true);
         ShortestPath shortest = new ShortestPath(world.get(0));
-        ArrayList<Graph.Edge> edges = shortest.g.getAllEdges();
+        ArrayList<Graph.Edge> edges = PathFindingService.g.getAllEdges();
         if (edges.size() != 42) {
             System.out.println("There should be 40 edges. Note that MountainTile is not reachable.");
             return false;

@@ -57,5 +57,8 @@ public class MetroTile extends Tile {
 
     // TODO level 7: updates the distance and time cost differently between metro tiles
     public void fixMetro(Tile node) {
+        double M = Math.abs(this.xCoord - node.xCoord) + Math.abs(this.yCoord + node.yCoord);
+        this.metroTimeCost = M/metroCommuteFactor;
+        this.metroDistanceCost = M/metroCommuteFactor;
     }
 }

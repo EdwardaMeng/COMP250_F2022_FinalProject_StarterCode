@@ -2,6 +2,7 @@ package finalproject;
 
 import finalproject.system.Tile;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -15,14 +16,7 @@ public abstract class PathFindingService{
 	public PathFindingService(Tile start) {
     	source = start;
         vertices = DijkstraTraverse(start);
-//        Logger.getInstance().logSystemMessage(String.valueOf(vertices.size()));
-        g = new Graph(vertices);
-        for(Tile t : vertices) {
-            for(Tile s : t.neighbors){
-                g.addEdge(t, s, s.distanceCost);
-            }
-        }
-//        Logger.getInstance().logSystemMessage(String.valueOf(g.getAllEdges().size()));
+        generateGraph();
     }
 
 	public abstract void generateGraph();
@@ -118,12 +112,88 @@ public abstract class PathFindingService{
     
     //TODO level 5: Implement basic dijkstra's algorithm to path find to a known destination
     public ArrayList<Tile> findPath(Tile start, Tile end) {
-    	return null;
+        LinkedList<Tile> path = new LinkedList<>();
+        for (Tile t : vertices) {
+            t.predecessor = null;
+            if (t == start)
+                t.costEstimate = 0;
+            else
+                t.costEstimate = Integer.MAX_VALUE;
+
+        }
+        TilePriorityQ tpq = new TilePriorityQ(vertices);
+        Tile t;
+        Tile finalTile = null;
+        while (!tpq.isEmpty()) {
+            t = tpq.removeMin();
+
+            System.out.println("current tile is " + t + " and cost is " + t.costEstimate + " and pred is " + t.predecessor);
+            for (Tile tile : t.neighbors) {
+                System.out.println("current neighbor is " + tile);
+                if (tile.costEstimate == Integer.MAX_VALUE) {
+                    for (Graph.Edge edge : g.getAllEdges()) {
+                        if (edge.getStart() == t && edge.getEnd() == tile) {
+                            tile.costEstimate = t.costEstimate + edge.weight;
+                            tpq.updateKeys(tile, t, tile.costEstimate);
+                            System.out.println("update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
+                        }
+                    }
+                } else {
+                    if(tile != t.predecessor){
+                        double oldCost = tile.costEstimate;
+                        double newCost = Integer.MAX_VALUE;
+                        for (Graph.Edge edge : g.getAllEdges()) {
+                            if (edge.getStart() == t && edge.getEnd() == tile) {
+                                newCost = t.costEstimate + edge.weight;
+                            }
+                        }
+                        System.out.println("new cost is " + newCost + " and old cost is " + oldCost);
+                        if (oldCost > newCost) {
+                            tile.costEstimate = newCost;
+                            tpq.updateKeys(tile, t, newCost);
+                            System.out.println("new cost is less and update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
+
+                        }
+                        else{
+                            System.out.println("Comparator not pass");
+                        }
+                    }
+                }
+
+            }
+            if(t == end){
+                finalTile = t;
+            }
+            System.out.println("--------------------------");
+
+        }
+        while(finalTile != null){
+            path.addFirst(finalTile);
+            finalTile = finalTile.predecessor;
+        }
+        System.out.println(path.size());
+
+        for(Tile tt : path)
+            System.out.println(tt);
+        return new ArrayList<>(path);
     }
 
     //TODO level 5: Implement basic dijkstra's algorithm to path find to the final destination passing through given waypoints
     public ArrayList<Tile> findPath(Tile start, LinkedList<Tile> waypoints){
-    	return null;
+        ArrayList<Tile> path = new ArrayList<>();
+        waypoints.addFirst(start);
+        for(Tile t : vertices)
+            if(t.isDestination)
+                waypoints.addLast(t);
+        for(int i = 0; i < waypoints.size()-1; i++){
+            ArrayList<Tile> current = findPath(waypoints.get(i), waypoints.get(i+1));
+            for(Tile t : current){
+                if(!path.contains(t))
+                    path.add(t);
+            }
+        }
+        return path;
+
     }
         
 }
