@@ -195,6 +195,11 @@ public abstract class PathFindingService{
         return path;
 
     }
+
+    public double getManhattanDistance(Tile t1, Tile t2){
+        return Math.abs(t1.xCoord - t2.xCoord) + Math.abs(t1.yCoord + t2.yCoord);
+    }
+
         
 }
 

@@ -18,8 +18,7 @@ public class ShortestPath extends PathFindingService {
         g = new Graph(vertices);
         for(Tile t : vertices) {
             for(Tile s : g.getNeighbors(t)){
-                if(t.type == TileType.Metro){
-                    g.addEdge(t, s, s);
+                if(t.type == TileType.Metro && s.type == TileType.Metro){
                 }
                 else
                     g.addEdge(t, s, s.distanceCost);
