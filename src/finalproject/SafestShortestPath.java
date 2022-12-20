@@ -22,48 +22,30 @@ public class SafestShortestPath extends ShortestPath {
 
 	@Override
 	public void generateGraph() {
-		System.out.println("call generateGraph");
-		ArrayList<Tile> costGraphVertices = vertices;
-		ArrayList<Tile> damageGraphVertices = vertices;
-		ArrayList<Tile> aggregatedGraphVertices = vertices;
-		this.costGraph = new Graph(costGraphVertices);
-		this.damageGraph = new Graph(damageGraphVertices);
-		this.aggregatedGraph = new Graph(aggregatedGraphVertices);
-
+		ArrayList<Tile> vertices = DijkstraTraverse(source);
+		this.costGraph = new Graph(vertices);
 		for(Tile t : vertices) {
-			for(Tile s : t.neighbors){
+			for(Tile s : costGraph.getNeighbors(t)){
 				this.costGraph.addEdge(t, s, s.distanceCost);
-				System.out.println(t + " " + s + " " + s.distanceCost);
-				for(Graph.Edge e : costGraph.getAllEdges()){
-					if(e.getStart() == t && e.getEnd() == s)
-						System.out.println(e.weight);
-				}
 			}
 		}
 
+		this.damageGraph = new Graph(vertices);
 		for(Tile t : vertices) {
-			for(Tile s : t.neighbors){
+			for(Tile s : damageGraph.getNeighbors(t)){
 				damageGraph.addEdge(t, s, s.damageCost);
-				System.out.println(costGraph.getAllEdges().size());
 			}
 		}
+
+		this.aggregatedGraph = new Graph(vertices);
 		for(Tile t : vertices) {
-			for(Tile s : t.neighbors){
+			for(Tile s : aggregatedGraph.getNeighbors(t)){
 				damageGraph.addEdge(t, s, s.damageCost);
-				System.out.println(costGraph.getAllEdges().size());
 
 			}
 		}
 
-		for(Tile t : vertices) {
-			for(Tile s : t.neighbors){
-				System.out.println(t + " 111 " + s + " 111 " + s.distanceCost);
-				for(Graph.Edge e : costGraph.getAllEdges()){
-					if(e.getStart() == t && e.getEnd() == s)
-						System.out.println(e.weight);
-				}
-			}
-		}
+		g = costGraph;
 	}
 
 	public ArrayList<Tile> findPath(Tile startNode, ArrayList<Tile> waypoints){
