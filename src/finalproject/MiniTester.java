@@ -22,33 +22,33 @@ public class MiniTester {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         String[] tests= {
-//                "testTile1",
-//                "testTile2",
-//                "testBFS1",
-//                "testBFS2",
-//                "testDFS1",
-//                "testDFS2",
-//                "testEdges",
-//                "testNeighbors1",
-//                "testNeighbors2",
-//                "testPathCost",
-//                "testRemoveMin",
-//                "testUpdateKeys",
-//                "testSPathGenerateGraph1",
-//                "testSPathGenerateGraph2",
-//                "testFindPath1Arg1",
-//                "testFindPath1Arg2",
-//                "testFindPath2Args",
-//                "testFindPath3Args",
-//                "testFPathGenerateGraph1",
-//                "testFPathGenerateGraph2",
-//                "testSPathGenerateGraphWithMetro",
-//                "testFPathGenerateGraphWithMetro",
+                "testTile1",
+                "testTile2",
+                "testBFS1",
+                "testBFS2",
+                "testDFS1",
+                "testDFS2",
+                "testEdges",
+                "testNeighbors1",
+                "testNeighbors2",
+                "testPathCost",
+                "testRemoveMin",
+                "testUpdateKeys",
+                "testSPathGenerateGraph1",
+                "testSPathGenerateGraph2",
+                "testFindPath1Arg1",
+                "testFindPath1Arg2",
+                "testFindPath2Args",
+                "testFindPath3Args",
+                "testFPathGenerateGraph1",
+                "testFPathGenerateGraph2",
+                "testSPathGenerateGraphWithMetro",
+                "testFPathGenerateGraphWithMetro",
                 "testSSPathGenerateGraph",
-//                "testSafeFindPath1",
-//                "testSafeFindPath2",
-//                "testSafeFindPath3",
-//                "testSafeFindPath4"
+                "testSafeFindPath1",
+                "testSafeFindPath2",
+                "testSafeFindPath3",
+                "testSafeFindPath4"
 
 
 
@@ -645,39 +645,54 @@ public class MiniTester {
         }
         return true;
     }
-    
+
     // test findPath(Tile startNode)
     public static boolean testFindPath1Arg2() { // 3 points
         buildWorld(lgMap, false);
         ShortestPath shortest = new ShortestPath(world.get(0));
         ArrayList<Tile> path = shortest.findPath(world.get(0));
-        /*
-         * s
-         * f
-         * f f d p
-         */
-        if (path.size() != 7) {
-            System.out.println("Path length (number of vertices, including start and end) should be 7.");
-            return false;
-        }
-        
-        Tile[] a = { tileArray[0][0], tileArray[1][0], tileArray[2][0],
-                tileArray[2][1], tileArray[2][2], tileArray[2][3], tileArray[3][3]
-        };
-        System.out.println("---------------");
+        if (path.size() == 6) { // to furthest (weighted) vertex
+            /*
+             * s
+             * f
+             * f f d p
+             */
+            Tile[] a = { tileArray[0][0], tileArray[1][0], tileArray[2][0],
+                    tileArray[2][1], tileArray[2][2], tileArray[2][3]
+            };
+            for (int i = 0; i < a.length; ++i)
+                if (path.get(i) != a[i]) {
+                    System.out.println("Wrong path.");
+                    return false;
+                }
 
-        for (int i = 0; i < a.length; ++i){
-            if (path.get(i) != a[i]) {
-                System.out.println("Wrong path.");
+            if (shortest.g.computePathCost(path) != 8) {
+                System.out.println("Path cost should be 8.");
                 return false;
             }
 
-            System.out.println(a[i]);
-        }
+        } else if (path.size() == 7) { // to destination
+            /* s
+             * f
+             * f f
+             *   f M e
+             */
+            Tile[] a = { tileArray[0][0], tileArray[1][0], tileArray[2][0], tileArray[2][1],
+                    tileArray[3][1], tileArray[3][2], tileArray[3][3]
+            };
+            for (int i = 0; i < a.length; ++i)
+                if (path.get(i) != a[i]) {
+                    System.out.println("Wrong path.");
+                    return false;
+                }
 
-        
-        if (PathFindingService.g.computePathCost(path) != 6) {
-            System.out.println("Path cost should be 6.");
+            if (shortest.g.computePathCost(path) != 6) {
+                System.out.println("Path cost should be 6.");
+                return false;
+            }
+
+        } else {
+            System.out.println("Wrong path length");
             return false;
         }
         return true;
@@ -831,10 +846,10 @@ public class MiniTester {
             return false;
         }
         for (Graph.Edge e: edges) {
-            System.out.println(e.origin + " test " + e.destination + " " + e.destination.distanceCost + " " + e.weight);
+//            System.out.println(e.origin + " test " + e.destination + " " + e.destination.distanceCost + " " + e.weight);
 
             if (e.weight != e.destination.distanceCost) {
-                System.out.println(e.origin + " test " + e.destination + " " + e.destination.distanceCost);
+//                System.out.println(e.origin + " test " + e.destination + " " + e.destination.distanceCost);
                 System.out.println(e.weight);
                 System.out.println("Weight should be the distance cost.");
                 return false;

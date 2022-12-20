@@ -59,15 +59,15 @@ public abstract class PathFindingService{
         while (!tpq.isEmpty()) {
             t = tpq.removeMin();
 
-            System.out.println("current tile is " + t + " and cost is " + t.costEstimate + " and pred is " + t.predecessor);
+//            System.out.println("current tile is " + t + " and cost is " + t.costEstimate + " and pred is " + t.predecessor);
             for (Tile tile : t.neighbors) {
-                System.out.println("current neighbor is " + tile);
+//                System.out.println("current neighbor is " + tile);
                 if (tile.costEstimate == Integer.MAX_VALUE) {
                     for (Graph.Edge edge : g.getAllEdges()) {
                         if (edge.getStart() == t && edge.getEnd() == tile) {
                             tile.costEstimate = t.costEstimate + edge.weight;
                             tpq.updateKeys(tile, t, tile.costEstimate);
-                            System.out.println("update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
+//                            System.out.println("update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
                         }
                     }
                 } else {
@@ -79,15 +79,15 @@ public abstract class PathFindingService{
                                 newCost = t.costEstimate + edge.weight;
                             }
                         }
-                        System.out.println("new cost is " + newCost + " and old cost is " + oldCost);
+//                        System.out.println("new cost is " + newCost + " and old cost is " + oldCost);
                         if (oldCost > newCost) {
                             tile.costEstimate = newCost;
                             tpq.updateKeys(tile, t, newCost);
-                            System.out.println("new cost is less and update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
+//                            System.out.println("new cost is less and update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
 
                         }
                         else{
-                            System.out.println("Comparator not pass");
+//                            System.out.println("Comparator not pass");
                         }
                     }
                 }
@@ -96,7 +96,7 @@ public abstract class PathFindingService{
             if(t.isDestination){
                 finalTile = t;
             }
-            System.out.println("--------------------------");
+//            System.out.println("--------------------------");
 
         }
         while(finalTile != null){
@@ -128,15 +128,15 @@ public abstract class PathFindingService{
         while (!tpq.isEmpty()) {
             t = tpq.removeMin();
 
-            System.out.println("current tile is " + t + " and cost is " + t.costEstimate + " and pred is " + t.predecessor);
+//            System.out.println("current tile is " + t + " and cost is " + t.costEstimate + " and pred is " + t.predecessor);
             for (Tile tile : t.neighbors) {
-                System.out.println("current neighbor is " + tile);
+//                System.out.println("current neighbor is " + tile);
                 if (tile.costEstimate == Integer.MAX_VALUE) {
                     for (Graph.Edge edge : g.getAllEdges()) {
                         if (edge.getStart() == t && edge.getEnd() == tile) {
                             tile.costEstimate = t.costEstimate + edge.weight;
                             tpq.updateKeys(tile, t, tile.costEstimate);
-                            System.out.println("update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
+//                            System.out.println("update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
                         }
                     }
                 } else {
@@ -148,16 +148,14 @@ public abstract class PathFindingService{
                                 newCost = t.costEstimate + edge.weight;
                             }
                         }
-                        System.out.println("new cost is " + newCost + " and old cost is " + oldCost);
+//                        System.out.println("new cost is " + newCost + " and old cost is " + oldCost);
                         if (oldCost > newCost) {
                             tile.costEstimate = newCost;
                             tpq.updateKeys(tile, t, newCost);
-                            System.out.println("new cost is less and update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
+//                            System.out.println("new cost is less and update tile " + tile + " with predecessor " + t + " and cost is " + tile.costEstimate);
 
                         }
-                        else{
-                            System.out.println("Comparator not pass");
-                        }
+
                     }
                 }
 
@@ -165,17 +163,17 @@ public abstract class PathFindingService{
             if(t == end){
                 finalTile = t;
             }
-            System.out.println("--------------------------");
+//            System.out.println("--------------------------");
 
         }
         while(finalTile != null){
             path.addFirst(finalTile);
             finalTile = finalTile.predecessor;
         }
-        System.out.println(path.size());
+//        System.out.println(path.size());
 
-        for(Tile tt : path)
-            System.out.println(tt);
+//        for(Tile tt : path)
+//            System.out.println(tt);
         return new ArrayList<>(path);
     }
 
