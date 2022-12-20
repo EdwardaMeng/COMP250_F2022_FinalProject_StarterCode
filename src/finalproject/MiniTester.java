@@ -827,7 +827,7 @@ public class MiniTester {
         if(edges != sspath.costGraph.getAllEdges())
             return false;
         if (edges.size() != 40) {
-            System.out.println("There should be 40 edges. Note that MountainTile is not reachable.");
+            System.out.println("There should be 40 edges. Note that MountainTile is not reachable." + edges.size());
             return false;
         }
         for (Graph.Edge e: edges) {
@@ -842,7 +842,7 @@ public class MiniTester {
         }
         edges = sspath.damageGraph.getAllEdges();
         if (edges.size() != 40) {
-            System.out.println("There should be 40 edges. Note that MountainTile is not reachable.");
+            System.out.println("There should be 40 edges. Note that MountainTile is not reachable." + edges.size());
             return false;
         }
         for (Graph.Edge e: edges) {

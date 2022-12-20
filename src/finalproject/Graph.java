@@ -6,13 +6,12 @@ import finalproject.system.Tile;
 
 public class Graph {
 	// TODO level 2: Add fields that can help you implement this data type
-    public static ArrayList<Edge> edges;
-    public static ArrayList<Tile> vertices;
+    public ArrayList<Edge> edges;
+    public ArrayList<Tile> vertices;
 
     // TODO level 2: initialize and assign all variables inside the constructor
 	public Graph(ArrayList<Tile> vertices) {
-        Graph.vertices = vertices;
-        edges = new ArrayList<>();
+        this.vertices = vertices;
 	}
 	
     // TODO level 2: add an edge to the graph
@@ -22,14 +21,12 @@ public class Graph {
 //        if(!origin.neighbors.contains(destination)){
 //            origin.neighbors.add(destination);
 //        }
-        if (edges == null)
-        {
+        if (edges == null) {
             edges = new ArrayList<>();
         }
 
         edges.add(new Edge(origin, destination, weight));
-        if (!origin.neighbors.contains(destination))
-        {
+        if (!origin.neighbors.contains(destination)) {
             origin.neighbors.add(destination);
         }
     }
