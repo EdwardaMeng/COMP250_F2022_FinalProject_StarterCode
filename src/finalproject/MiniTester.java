@@ -20,78 +20,126 @@ import finalproject.GraphTraversal;
 public class MiniTester {
 
     public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        String[] tests= {
+                "testTile1",
+                "testTile2",
+                "testBFS1",
+                "testBFS2",
+                "testDFS1",
+                "testDFS2",
+                "testEdges",
+                "testNeighbors1",
+                "testNeighbors2",
+                "testPathCost",
+                "testRemoveMin",
+                "testUpdateKeys",
+                "testSPathGenerateGraph1",
+                "testSPathGenerateGraph2",
+                "testFindPath1Arg1",
+                "testFindPath1Arg2",
+                "testFindPath2Args",
+                "testFindPath3Args",
+                "testFPathGenerateGraph1",
+                "testFPathGenerateGraph2",
+                "testSPathGenerateGraphWithMetro",
+                "testFPathGenerateGraphWithMetro",
+                "testSSPathGenerateGraph",
+                "testSafeFindPath1",
+                "testSafeFindPath2",
+                "testSafeFindPath3",
+                "testSafeFindPath4"
+
+
+
+
+
+
+
+        };
+        args = new String[1];
+        for(int index=0; index<tests.length;index++)
+        {
+            System.out.println(tests[index]);
+            args[0]=tests[index];
+            String testName = args[0];
+            boolean pass = false;
+            if (testName.equals("testTile1")) {
+                pass = testTile1();
+            } else if (testName.equals("testTile2")) {
+                pass = testTile2();
+            } else if (testName.equals("testBFS1")) {
+                pass = testBFS1();
+            } else if (testName.equals("testDFS1")) {
+                pass = testDFS1();
+            } else if (testName.equals("testBFS2")) {
+                pass = testBFS2();
+            } else if (testName.equals("testDFS2")) {
+                pass = testDFS2();
+            } else if (testName.equals("testEdges")) {
+                pass = testEdges();
+            } else if (testName.equals("testNeighbors1")) {
+                pass = testNeighbors1();
+            } else if (testName.equals("testNeighbors2")) {
+                pass = testNeighbors2();
+            } else if (testName.equals("testPathCost")) {
+                pass = testPathCost();
+            } else if (testName.equals("testRemoveMin")) {
+                pass = testRemoveMin();
+            } else if (testName.equals("testUpdateKeys")) {
+                pass = testUpdateKeys();
+            } else if (testName.equals("testSPathGenerateGraph1")) {
+                pass = testSPathGenerateGraph1();
+            } else if (testName.equals("testSPathGenerateGraph2")) {
+                pass = testSPathGenerateGraph2();
+            } else if (testName.equals("testFindPath1Arg1")) {
+                pass = testFindPath1Arg1();
+            } else if (testName.equals("testFindPath1Arg2")) {
+                pass = testFindPath1Arg2();
+            } else if (testName.equals("testFindPath2Args")) {
+                pass = testFindPath2Args();
+            } else if (testName.equals("testFindPath3Args")) {
+                pass = testFindPath3Args();
+            } else if (testName.equals("testFPathGenerateGraph1")) {
+                pass = testFPathGenerateGraph1();
+            } else if (testName.equals("testFPathGenerateGraph2")) {
+                pass = testFPathGenerateGraph2();
+            } else if (testName.equals("testSPathGenerateGraphWithMetro")) {
+                pass = testSPathGenerateGraphWithMetro();
+            } else if (testName.equals("testFPathGenerateGraphWithMetro")) {
+                pass = testFPathGenerateGraphWithMetro();
+            } else if (testName.equals("testSSPathGenerateGraph")) {
+                pass = testSSPathGenerateGraph();
+            } else if (testName.equals("testSafeFindPath1")) {
+                pass = testSafeFindPath1();
+            } else if (testName.equals("testSafeFindPath2")) {
+                pass = testSafeFindPath2();
+            } else if (testName.equals("testSafeFindPath3")) {
+                pass = testSafeFindPath3();
+            } else if (testName.equals("testSafeFindPath4")) {
+                pass = testSafeFindPath4();
+            } else {
+                System.out.println("Unknown test " + testName + ".");
+            }
+
+            if (pass) {
+                System.out.println("pass");
+                //System.exit(0);
+            } else {
+                System.out.println("fail");
+                //System.exit(1);
+            }
+            System.out.println("\n-----------------\n");
+        }
+        /*
         if (args.length != 1) {
             System.out.println("Need one argument.");
             System.exit(1);
         }
-        String testName = args[0];
-        boolean pass = false;
-        if (testName.equals("testTile1")) {
-            pass = testTile1();
-        } else if (testName.equals("testTile2")) {
-            pass = testTile2();
-        } else if (testName.equals("testBFS1")) {
-            pass = testBFS1();
-        } else if (testName.equals("testDFS1")) {
-            pass = testDFS1();
-        } else if (testName.equals("testBFS2")) {
-            pass = testBFS2();
-        } else if (testName.equals("testDFS2")) {
-            pass = testDFS2();
-        } else if (testName.equals("testEdges")) {
-            pass = testEdges();
-        } else if (testName.equals("testNeighbors1")) {
-            pass = testNeighbors1();
-        } else if (testName.equals("testNeighbors2")) {
-            pass = testNeighbors2();
-        } else if (testName.equals("testPathCost")) {
-            pass = testPathCost();
-        } else if (testName.equals("testRemoveMin")) {
-            pass = testRemoveMin();
-        } else if (testName.equals("testUpdateKeys")) {
-            pass = testUpdateKeys();
-        } else if (testName.equals("testSPathGenerateGraph1")) {
-            pass = testSPathGenerateGraph1();
-        } else if (testName.equals("testSPathGenerateGraph2")) {
-            pass = testSPathGenerateGraph2();
-        } else if (testName.equals("testFindPath1Arg1")) {
-            pass = testFindPath1Arg1();
-        } else if (testName.equals("testFindPath1Arg2")) {
-            pass = testFindPath1Arg2();
-        } else if (testName.equals("testFindPath2Args")) {
-            pass = testFindPath2Args();
-        } else if (testName.equals("testFindPath3Args")) {
-            pass = testFindPath3Args();
-        } else if (testName.equals("testFPathGenerateGraph1")) {
-            pass = testFPathGenerateGraph1();
-        } else if (testName.equals("testFPathGenerateGraph2")) {
-            pass = testFPathGenerateGraph2();
-        } else if (testName.equals("testSPathGenerateGraphWithMetro")) {
-            pass = testSPathGenerateGraphWithMetro();
-        } else if (testName.equals("testFPathGenerateGraphWithMetro")) {
-            pass = testFPathGenerateGraphWithMetro();
-        } else if (testName.equals("testSSPathGenerateGraph")) {
-            pass = testSSPathGenerateGraph();
-        } else if (testName.equals("testSafeFindPath1")) {
-            pass = testSafeFindPath1();
-        } else if (testName.equals("testSafeFindPath2")) {
-            pass = testSafeFindPath2();
-        } else if (testName.equals("testSafeFindPath3")) {
-            pass = testSafeFindPath3();
-        } else if (testName.equals("testSafeFindPath4")) {
-            pass = testSafeFindPath4();
-        } else {
-            System.out.println("Unknown test " + testName + ".");
-        }
-        
-        if (pass) {
-            System.out.println("pass");
-            System.exit(0);
-        } else {
-            System.out.println("fail");
-            System.exit(1);
-        }
-            
+
+         */
+
+
     }
     
     public static class TestTile extends Tile {
