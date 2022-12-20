@@ -15,7 +15,7 @@ public abstract class PathFindingService{
 
 	public PathFindingService(Tile start) {
     	source = start;
-        vertices = DijkstraTraverse(start);
+        generateGraph();
     }
 
 

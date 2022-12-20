@@ -14,6 +14,7 @@ public class ShortestPath extends PathFindingService {
 	@Override
 	public void generateGraph() {
 		// TODO Auto-generated method stub
+        vertices = DijkstraTraverse(source);
         g = new Graph(vertices);
         for(Tile t : vertices) {
             for(Tile s : g.getNeighbors(t)){
