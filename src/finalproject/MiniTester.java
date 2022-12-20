@@ -775,14 +775,19 @@ public class MiniTester {
     public static boolean testSSPathGenerateGraph() { // 2 points
         buildWorld(lgMap, false);
         SafestShortestPath sspath = new SafestShortestPath(world.get(0), 100);
-        ArrayList<Graph.Edge> edges;
-        edges = sspath.costGraph.getAllEdges();
+        ArrayList<Graph.Edge> edges = sspath.costGraph.getAllEdges();
+        if(edges != sspath.costGraph.getAllEdges())
+            return false;
         if (edges.size() != 40) {
             System.out.println("There should be 40 edges. Note that MountainTile is not reachable.");
             return false;
         }
         for (Graph.Edge e: edges) {
+            System.out.println(e.origin + " test " + e.destination + " " + e.destination.distanceCost + " " + e.weight);
+
             if (e.weight != e.destination.distanceCost) {
+                System.out.println(e.origin + " test " + e.destination + " " + e.destination.distanceCost);
+                System.out.println(e.weight);
                 System.out.println("Weight should be the distance cost.");
                 return false;
             }

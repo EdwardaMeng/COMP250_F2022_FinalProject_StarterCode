@@ -16,10 +16,10 @@ public abstract class PathFindingService{
 	public PathFindingService(Tile start) {
     	source = start;
         vertices = DijkstraTraverse(start);
-        generateGraph();
     }
 
-	public abstract void generateGraph();
+
+    public abstract void generateGraph();
 
     public static ArrayList<Tile> DijkstraTraverse(Tile s){
         LinkedList<Tile> queue1 = new LinkedList<>();
@@ -111,7 +111,7 @@ public abstract class PathFindingService{
     }
     
     //TODO level 5: Implement basic dijkstra's algorithm to path find to a known destination
-    public ArrayList<Tile> findPath(Tile start, Tile end) {
+    public static ArrayList<Tile> findPath(Tile start, Tile end) {
         LinkedList<Tile> path = new LinkedList<>();
         for (Tile t : vertices) {
             t.predecessor = null;
@@ -179,7 +179,7 @@ public abstract class PathFindingService{
     }
 
     //TODO level 5: Implement basic dijkstra's algorithm to path find to the final destination passing through given waypoints
-    public ArrayList<Tile> findPath(Tile start, LinkedList<Tile> waypoints){
+    public static ArrayList<Tile> findPath(Tile start, LinkedList<Tile> waypoints){
         ArrayList<Tile> path = new ArrayList<>();
         waypoints.addFirst(start);
         for(Tile t : vertices)
