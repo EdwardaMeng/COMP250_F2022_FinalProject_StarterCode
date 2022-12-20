@@ -17,9 +17,19 @@ public class Graph {
 	
     // TODO level 2: add an edge to the graph
     public void addEdge(Tile origin, Tile destination, double weight){
-    	Edge edge = new Edge(origin, destination, weight);
-        edges.add(edge);
-        if(!origin.neighbors.contains(destination)){
+//    	Edge edge = new Edge(origin, destination, weight);
+//        edges.add(edge);
+//        if(!origin.neighbors.contains(destination)){
+//            origin.neighbors.add(destination);
+//        }
+        if (edges == null)
+        {
+            edges = new ArrayList<>();
+        }
+
+        edges.add(new Edge(origin, destination, weight));
+        if (!origin.neighbors.contains(destination))
+        {
             origin.neighbors.add(destination);
         }
     }
