@@ -9,9 +9,9 @@ import finalproject.system.Tile;
 
 public class SafestShortestPath extends ShortestPath {
 	public int health;
-	public Graph costGraph;
-	public Graph damageGraph;
-	public Graph aggregatedGraph;
+	public static Graph costGraph;
+	public static Graph damageGraph;
+	public static Graph aggregatedGraph;
 
 	//TODO level 8: finish class for finding the safest shortest path with given health constraint
 	public SafestShortestPath(Tile start, int health) {
@@ -21,23 +21,21 @@ public class SafestShortestPath extends ShortestPath {
 
 	public void generateGraph() {
 		ArrayList<Tile> vertices = DijkstraTraverse(source);
-		for(Tile t : vertices)
-			System.out.println(t);
-		this.costGraph = new Graph(vertices);
+		costGraph = new Graph(vertices);
 		for(Tile t : vertices) {
 			for(Tile s : costGraph.getNeighbors(t)){
-				this.costGraph.addEdge(t, s, s.distanceCost);
+				costGraph.addEdge(t, s, s.distanceCost);
 			}
 		}
 
-		this.damageGraph = new Graph(vertices);
+		damageGraph = new Graph(vertices);
 		for(Tile t : vertices) {
 			for(Tile s : damageGraph.getNeighbors(t)){
 				damageGraph.addEdge(t, s, s.damageCost);
 			}
 		}
 
-		this.aggregatedGraph = new Graph(vertices);
+		aggregatedGraph = new Graph(vertices);
 		for(Tile t : vertices) {
 			for(Tile s : aggregatedGraph.getNeighbors(t)){
 				damageGraph.addEdge(t, s, s.damageCost);

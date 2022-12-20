@@ -48,6 +48,10 @@ public class Graph {
 //        System.out.println("total cost is " + totalCost);
 		return totalCost;
 	}
+
+    public ArrayList<Tile> getVertices(){
+        return vertices;
+    }
 	
    
     public static class Edge{
