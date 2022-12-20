@@ -38,7 +38,7 @@ public class SafestShortestPath extends ShortestPath {
 		aggregatedGraph = new Graph(vertices);
 		for(Tile t : vertices) {
 			for(Tile s : aggregatedGraph.getNeighbors(t)){
-				damageGraph.addEdge(t, s, s.damageCost);
+				aggregatedGraph.addEdge(t, s, s.damageCost);
 
 			}
 		}
