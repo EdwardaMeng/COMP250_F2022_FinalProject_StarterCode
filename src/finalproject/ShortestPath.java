@@ -19,6 +19,8 @@ public class ShortestPath extends PathFindingService {
         for(Tile t : vertices) {
             for(Tile s : g.getNeighbors(t)){
                 if(t.type == TileType.Metro && s.type == TileType.Metro){
+                    ((MetroTile)s).metroDistanceCost = getManhattanDistance(t, s)/((MetroTile) s).metroCommuteFactor;
+                    g.addEdge(t,s,((MetroTile) s).metroDistanceCost);
                 }
                 else
                     g.addEdge(t, s, s.distanceCost);

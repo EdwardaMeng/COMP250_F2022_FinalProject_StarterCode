@@ -17,11 +17,11 @@ public class FastestPath extends PathFindingService {
         g = new Graph(vertices);
         for(Tile t : vertices) {
             for(Tile s : t.neighbors){
-//                if(s.getTileType() == TileType.Metro && t.getTileType() == TileType.Metro){
-//                    MetroTile tmp = (MetroTile) s;
-//                    g.addEdge(t, s, tmp.metroTimeCost);
-//                }
-//                else
+                if(t.type == TileType.Metro && s.type == TileType.Metro){
+                    ((MetroTile)s).metroTimeCost = getManhattanDistance(t, s)*((MetroTile) s).metroCommuteFactor;
+                    g.addEdge(t,s,((MetroTile) s).metroTimeCost);
+                }
+                else
                     g.addEdge(t, s, s.timeCost);
             }
         }
