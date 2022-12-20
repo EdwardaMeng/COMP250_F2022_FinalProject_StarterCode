@@ -17,12 +17,11 @@ public class ShortestPath extends PathFindingService {
 		// TODO Auto-generated method stub
         g = new Graph(vertices);
         for(Tile t : vertices) {
-            for(Tile s : t.neighbors){
-//                if(s.getTileType() == TileType.Metro && t.getTileType() == TileType.Metro){
-//                    MetroTile tmp = (MetroTile) s;
-//                    g.addEdge(t, s, tmp.metroDistanceCost);
-//                }
-//                else
+            for(Tile s : g.getNeighbors(t)){
+                if(t.type == TileType.Metro){
+                    g.addEdge(t, s, s);
+                }
+                else
                     g.addEdge(t, s, s.distanceCost);
             }
         }
