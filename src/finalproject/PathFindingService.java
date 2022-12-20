@@ -178,7 +178,7 @@ public abstract class PathFindingService{
     }
 
     //TODO level 5: Implement basic dijkstra's algorithm to path find to the final destination passing through given waypoints
-    public static ArrayList<Tile> findPath(Tile start, LinkedList<Tile> waypoints){
+    public ArrayList<Tile> findPath(Tile start, LinkedList<Tile> waypoints){
         ArrayList<Tile> path = new ArrayList<>();
         ArrayList<Tile> vertices = g.getVertices();
         waypoints.addFirst(start);
