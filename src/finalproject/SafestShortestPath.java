@@ -19,9 +19,10 @@ public class SafestShortestPath extends ShortestPath {
 		this.health = health;
 	}
 
-	@Override
 	public void generateGraph() {
-		vertices = DijkstraTraverse(source);
+		ArrayList<Tile> vertices = DijkstraTraverse(source);
+		for(Tile t : vertices)
+			System.out.println(t);
 		this.costGraph = new Graph(vertices);
 		for(Tile t : vertices) {
 			for(Tile s : costGraph.getNeighbors(t)){

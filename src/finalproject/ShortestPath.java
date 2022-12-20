@@ -5,6 +5,8 @@ import finalproject.system.Tile;
 import finalproject.system.TileType;
 import finalproject.tiles.MetroTile;
 
+import java.util.ArrayList;
+
 public class ShortestPath extends PathFindingService {
     //TODO level 4: find distance prioritized path
     public ShortestPath(Tile start) {
@@ -14,7 +16,7 @@ public class ShortestPath extends PathFindingService {
 	@Override
 	public void generateGraph() {
 		// TODO Auto-generated method stub
-        vertices = DijkstraTraverse(source);
+        ArrayList<Tile> vertices = DijkstraTraverse(source);
         g = new Graph(vertices);
         for(Tile t : vertices) {
             for(Tile s : g.getNeighbors(t)){

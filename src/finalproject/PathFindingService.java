@@ -11,7 +11,6 @@ import java.util.LinkedList;
 public abstract class PathFindingService{
 	public static Tile source;
 	public static Graph g;
-    public static ArrayList<Tile> vertices;
 
 	public PathFindingService(Tile start) {
     	source = start;
@@ -45,6 +44,7 @@ public abstract class PathFindingService{
     //TODO level 4: Implement basic dijkstra's algorithm to find a path to the final unknown destination
     public ArrayList<Tile> findPath(Tile startNode) {
         LinkedList<Tile> path = new LinkedList<>();
+        ArrayList<Tile> vertices = DijkstraTraverse(startNode);
         for (Tile t : vertices) {
             t.predecessor = null;
             if (t == startNode)
@@ -113,6 +113,7 @@ public abstract class PathFindingService{
     //TODO level 5: Implement basic dijkstra's algorithm to path find to a known destination
     public static ArrayList<Tile> findPath(Tile start, Tile end) {
         LinkedList<Tile> path = new LinkedList<>();
+        ArrayList<Tile> vertices = DijkstraTraverse(start);
         for (Tile t : vertices) {
             t.predecessor = null;
             if (t == start)
@@ -181,6 +182,7 @@ public abstract class PathFindingService{
     //TODO level 5: Implement basic dijkstra's algorithm to path find to the final destination passing through given waypoints
     public static ArrayList<Tile> findPath(Tile start, LinkedList<Tile> waypoints){
         ArrayList<Tile> path = new ArrayList<>();
+        ArrayList<Tile> vertices = DijkstraTraverse(start);
         waypoints.addFirst(start);
         for(Tile t : vertices)
             if(t.isDestination)

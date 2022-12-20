@@ -4,6 +4,8 @@ import finalproject.system.Tile;
 import finalproject.system.TileType;
 import finalproject.tiles.MetroTile;
 
+import java.util.ArrayList;
+
 public class FastestPath extends PathFindingService {
     //TODO level 6: find time prioritized path
     public FastestPath(Tile start) {
@@ -13,7 +15,7 @@ public class FastestPath extends PathFindingService {
 	@Override
 	public void generateGraph() {
 		// TODO Auto-generated method stub
-        vertices = DijkstraTraverse(source);
+        ArrayList<Tile> vertices = DijkstraTraverse(source);
         g = new Graph(vertices);
         for(Tile t : vertices) {
             for(Tile s : t.neighbors){
