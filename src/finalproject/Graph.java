@@ -44,12 +44,18 @@ public class Graph {
 	// TODO level 2: return total cost for the input path
 	public double computePathCost(ArrayList<Tile> path) {
         double totalCost = 0;
-        for(int i = 0; i < path.size()-1;i++){
-            for(Edge e : edges){
-                if(e.getStart() == path.get(i) && e.getEnd() == path.get(i+1)){
-                    totalCost += e.weight;
-//                    System.out.println(path.get(i) + " and " + path.get(i+1) + "'s weight is " + e.weight);
-                }
+//        for(int i = 0; i < path.size()-1;i++){
+//            for(Edge e : edges){
+//                if(e.getStart() == path.get(i) && e.getEnd() == path.get(i+1)){
+//                    totalCost += e.weight;
+////                    System.out.println(path.get(i) + " and " + path.get(i+1) + "'s weight is " + e.weight);
+//                }
+//            }
+//        }
+        for(Edge e : edges){
+            if(e.origin == path.get(1) && e.destination == path.get(0)){
+                System.out.println(totalCost);
+                totalCost = e.weight;
             }
         }
 //        System.out.println("total cost is " + totalCost);
@@ -58,6 +64,14 @@ public class Graph {
 
     public ArrayList<Tile> getVertices(){
         return vertices;
+    }
+
+    public Edge getEdge(Tile origin, Tile destination){
+        for(Edge e : edges){
+            if(e.origin == origin && e.destination == destination)
+                return e;
+        }
+        return null;
     }
 	
    

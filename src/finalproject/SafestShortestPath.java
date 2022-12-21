@@ -19,6 +19,7 @@ public class SafestShortestPath extends ShortestPath {
 		this.health = health;
 	}
 
+	@Override
 	public void generateGraph() {
 		ArrayList<Tile> vertices = DijkstraTraverse(source);
 		costGraph = new Graph(vertices);
@@ -46,24 +47,69 @@ public class SafestShortestPath extends ShortestPath {
 		g = costGraph;
 	}
 
-//	@Override
-//	public ArrayList<Tile> findPath(Tile startNode, LinkedList<Tile> waypoints){
-//		PathFindingService.g = costGraph;
-//		LinkedList<Tile> ThisWaypoints = new LinkedList<>(waypoints);
-//		ArrayList<Tile> pathC = findPath(startNode, ThisWaypoints);
-//		double damageCostPathC = damageGraph.computePathCost(pathC);
-//		double distanceCostPathC = costGraph.computePathCost(pathC);
-//		if(damageCostPathC < health)
-//			return pathC;
-//		PathFindingService.g = damageGraph;
-//		ArrayList<Tile> pathD = findPath(startNode, ThisWaypoints);
-//		double damageCostPathD = damageGraph.computePathCost(pathD);
-//		double distanceCostPathD = costGraph.computePathCost(pathD);
-//		if(damageCostPathD > health)
-//			return null;
-//		double lambda = (distanceCostPathC -distanceCostPathD) / (damageCostPathC - damageCostPathD);
-//
-//		return null;
-//	}
+	@Override
+	public ArrayList<Tile> findPath(Tile startNode, LinkedList<Tile> waypoints){
+		ArrayList<Tile> result =new ArrayList<>();
+		ArrayList<Tile> pathC = new ArrayList<>();
+		ArrayList<Tile> vertices = g.getVertices();
+		waypoints.addFirst(startNode);
+		for(Tile t : vertices)
+			if(t.isDestination)
+				waypoints.addLast(t);
+		for(int i = 0; i < waypoints.size()-1; i++){
+			ArrayList<Tile> current = findPath(waypoints.get(i), waypoints.get(i+1));
+			for(Tile t : current){
+				if(!pathC.contains(t))
+					pathC.add(t);
+			}
+		}
+		double damageCostPathC = damageGraph.computePathCost(pathC);
+		double distanceCostPathC = costGraph.computePathCost(pathC);
+		if(damageCostPathC < health)
+			result = pathC;
+		g = damageGraph;
+		ArrayList<Tile> pathD = new ArrayList<>();
+		for(int i = 0; i < waypoints.size()-1; i++){
+			ArrayList<Tile> current = findPath(waypoints.get(i), waypoints.get(i+1));
+			for(Tile t : current){
+				if(!pathD.contains(t))
+					pathD.add(t);
+			}
+		}
+		double damageCostPathD = damageGraph.computePathCost(pathD);
+		double distanceCostPathD = costGraph.computePathCost(pathD);
+		if(damageCostPathD > health)
+			result = null;
+		double lambda = (distanceCostPathC -distanceCostPathD) / (damageCostPathC - damageCostPathD);
+
+		for(Graph.Edge e : aggregatedGraph.getAllEdges()){
+			e.weight = costGraph.getEdge(e.origin, e.destination).weight + lambda * damageGraph.getEdge(e.origin, e.destination).weight;
+		}
+
+		g = aggregatedGraph;
+		ArrayList<Tile> pathR = new ArrayList<>();
+		for(int i = 0; i < waypoints.size()-1; i++){
+			ArrayList<Tile> current = findPath(waypoints.get(i), waypoints.get(i+1));
+			for(Tile t : current){
+				if(!pathR.contains(t))
+					pathR.add(t);
+			}
+		}
+
+
+		while(result == null){
+			double aggregatedCostPathR = aggregatedGraph.computePathCost(pathR);
+			double aggregatedCostPathC = aggregatedGraph.computePathCost(pathC);
+			double damageCostPathR = damageGraph.computePathCost(pathR);
+			if(aggregatedCostPathR == aggregatedCostPathC){
+				result = pathD;
+			}
+			else if(damageCostPathR <= health)
+				pathD = pathR;
+			else
+				pathC = pathR;
+		}
+		return result;
+	}
 
 }
