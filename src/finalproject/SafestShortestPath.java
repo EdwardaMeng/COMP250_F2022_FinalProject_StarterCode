@@ -47,7 +47,7 @@ public class SafestShortestPath extends ShortestPath {
 		g = costGraph;
 	}
 
-	@Override
+//	@Override
 	public ArrayList<Tile> findPath(Tile startNode, LinkedList<Tile> waypoints){
 		ArrayList<Tile> result =new ArrayList<>();
 		ArrayList<Tile> pathC = new ArrayList<>();
@@ -115,6 +115,23 @@ public class SafestShortestPath extends ShortestPath {
 
 		while(result.isEmpty()){
 			System.out.println("--------------------------------------------");
+			damageCostPathC = damageGraph.computePathCost(pathC);
+			distanceCostPathC = costGraph.computePathCost(pathC);
+			damageCostPathD = damageGraph.computePathCost(pathD);
+			distanceCostPathD = costGraph.computePathCost(pathD);
+			lambda = (distanceCostPathC -distanceCostPathD) / (damageCostPathC - damageCostPathD);
+			for(Graph.Edge e : aggregatedGraph.getAllEdges()){
+				e.weight = costGraph.getEdge(e.origin, e.destination).weight + lambda * damageGraph.getEdge(e.origin, e.destination).weight;
+
+			}
+			pathR = new ArrayList<>();
+			for(int i = 0; i < waypoints.size()-1; i++){
+				ArrayList<Tile> current = findPath(waypoints.get(i), waypoints.get(i+1));
+				for(Tile t : current){
+					if(!pathR.contains(t))
+						pathR.add(t);
+				}
+			}
 			double aggregatedCostPathR = aggregatedGraph.computePathCost(pathR);
 			double aggregatedCostPathC = aggregatedGraph.computePathCost(pathC);
 			double damageCostPathR = damageGraph.computePathCost(pathR);
