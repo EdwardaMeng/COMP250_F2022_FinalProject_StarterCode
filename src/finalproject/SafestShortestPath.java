@@ -63,10 +63,15 @@ public class SafestShortestPath extends ShortestPath {
 					pathC.add(t);
 			}
 		}
+
 		double damageCostPathC = damageGraph.computePathCost(pathC);
 		double distanceCostPathC = costGraph.computePathCost(pathC);
-		if(damageCostPathC < health)
+		if(damageCostPathC < health){
+//			System.out.println("damageCostPathC is " + damageCostPathC);
 			result = pathC;
+			return result;
+
+		}
 		g = damageGraph;
 		ArrayList<Tile> pathD = new ArrayList<>();
 		for(int i = 0; i < waypoints.size()-1; i++){
@@ -79,11 +84,22 @@ public class SafestShortestPath extends ShortestPath {
 		double damageCostPathD = damageGraph.computePathCost(pathD);
 		double distanceCostPathD = costGraph.computePathCost(pathD);
 		if(damageCostPathD > health)
+		{
+//			System.out.println("damageCostPathD is " + damageCostPathD);
 			result = null;
+			System.out.println("No possible path exists");
+			return result;
+
+		}
+		System.out.println(distanceCostPathC + " " + distanceCostPathD + " " + damageCostPathC + " " +damageCostPathD);
 		double lambda = (distanceCostPathC -distanceCostPathD) / (damageCostPathC - damageCostPathD);
+
+		System.out.println("lambda is " + lambda);
+
 
 		for(Graph.Edge e : aggregatedGraph.getAllEdges()){
 			e.weight = costGraph.getEdge(e.origin, e.destination).weight + lambda * damageGraph.getEdge(e.origin, e.destination).weight;
+
 		}
 
 		g = aggregatedGraph;
@@ -97,7 +113,8 @@ public class SafestShortestPath extends ShortestPath {
 		}
 
 
-		while(result == null){
+		while(result.isEmpty()){
+			System.out.println("--------------------------------------------");
 			double aggregatedCostPathR = aggregatedGraph.computePathCost(pathR);
 			double aggregatedCostPathC = aggregatedGraph.computePathCost(pathC);
 			double damageCostPathR = damageGraph.computePathCost(pathR);
@@ -109,6 +126,16 @@ public class SafestShortestPath extends ShortestPath {
 			else
 				pathC = pathR;
 		}
+
+//		for(int i = 0; i < result.size()-1; i++){
+//			for(Graph.Edge edge : aggregatedGraph.getAllEdges()){
+//				if(result.get(i) == edge.origin && result.get(i+1) == edge.destination){
+//					System.out.println(edge.origin + " " + edge.destination + " " + edge.weight);
+//				}
+//			}
+//
+//		}
+
 		return result;
 	}
 

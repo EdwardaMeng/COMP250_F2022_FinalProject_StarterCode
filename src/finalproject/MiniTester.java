@@ -920,12 +920,16 @@ public class MiniTester {
         ShortestPath shortest = new SafestShortestPath(world.get(0), 1);
         LinkedList<Tile> waypoints = new LinkedList<Tile>();
         ArrayList<Tile> path = shortest.findPath(world.get(0), waypoints);
+        for(Tile t : path){
+            System.out.println(t);
+        }
         /*
          * s
          * p
          * p p
          *   p p e
          */
+        System.out.println(path.size());
         if (path.size() != 7) {
             System.out.println("Path length (number of vertices, including start and end) should be 7.");
             return false;
